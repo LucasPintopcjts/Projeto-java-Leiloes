@@ -1,6 +1,11 @@
 
 import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -11,15 +16,16 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Adm
  */
-public class listagemVIEW extends javax.swing.JFrame {
+public final class listagemVIEW extends javax.swing.JFrame {
 
     /**
      * Creates new form listagemVIEW
      */
     public listagemVIEW() {
-        initComponents();
-        listarProdutos();
-    }
+    initComponents();
+    listarProdutos(); 
+}
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -181,10 +187,8 @@ public class listagemVIEW extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new listagemVIEW().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new listagemVIEW().setVisible(true);
         });
     }
 
@@ -201,25 +205,34 @@ public class listagemVIEW extends javax.swing.JFrame {
     private javax.swing.JTable listaProdutos;
     // End of variables declaration//GEN-END:variables
 
-    private void listarProdutos(){
-        try {
-            ProdutosDAO produtosdao = new ProdutosDAO();
-            
-            DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
-            model.setNumRows(0);
-            
-            ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos();
-            
-            for(int i = 0; i < listagem.size(); i++){
-                model.addRow(new Object[]{
-                    listagem.get(i).getId(),
-                    listagem.get(i).getNome(),
-                    listagem.get(i).getValor(),
-                    listagem.get(i).getStatus()
-                });
-            }
-        } catch (Exception e) {
+    public ArrayList<ProdutosDTO> listarProdutos() {
+    ArrayList<ProdutosDTO> produtos = new ArrayList<>();
+    String query = "SELECT * FROM produtos"; // A consulta que traz todos os produtos.
+    String url = "jdbc:mysql://localhost:3306/leilao?useSSL=false\""; // URL de conexão com o banco de dados
+    String usuario = "root"; // Seu nome de usuário do banco
+    String senha = "Lucas@260906"; // Sua senha do banco
+    try (Connection conn = DriverManager.getConnection(url, usuario, senha);
+         Statement stmt = (Statement) conn.createStatement();
+         ResultSet rs = stmt.executeQuery(query)) {
+        
+        while (rs.next()) {
+            ProdutosDTO produto = new ProdutosDTO();
+            produto.setId(getlong("id"));
+            produto.setNome(rs.getString("nome"));
+            produto.setStatus(rs.getString("status"));
+            produtos.add(produto);
+        }
+    } catch (SQLException e) {
+    }
+    
+    return produtos;
+}
+
+    private Integer getlong(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
         }
     
-    }
-}
+    
+
