@@ -12,7 +12,7 @@ public class conectaDAO {
         Connection conn = null;
 
         try {
-            // Substitua 'nome_do_banco' pelo nome real do seu banco de dados
+            
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/leilao", "root", "Lucas@260906");
 
         } catch (SQLException erro) {

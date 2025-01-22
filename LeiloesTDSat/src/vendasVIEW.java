@@ -7,7 +7,7 @@ public class vendasVIEW extends javax.swing.JFrame {
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
-        // Componentes da interface
+        
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaVendas = new javax.swing.JTable();
@@ -29,7 +29,7 @@ public class vendasVIEW extends javax.swing.JFrame {
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(this::btnVoltarActionPerformed);
 
-        // Layout e organização da tela
+        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -60,17 +60,17 @@ public class vendasVIEW extends javax.swing.JFrame {
     }
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {
-        // Fecha a tela de vendas e retorna para a tela anterior
-        this.dispose(); // Fecha a janela de vendas
+        
+        this.dispose(); 
     }
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            new vendasVIEW().setVisible(true);  // Exibe a tela de vendas
+            new vendasVIEW().setVisible(true);  
         });
     }
 
-    // Declaração de componentes
+    
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

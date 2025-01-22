@@ -12,7 +12,7 @@ public class ProdutosDAO {
     ResultSet resultset;
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
 
-    // Método para cadastrar um produto
+    
     public void cadastrarProduto(ProdutosDTO produto) {
         conn = new conectaDAO().connectDB(); // Conecta ao banco de dados
 
@@ -44,15 +44,15 @@ public class ProdutosDAO {
         }
     }
 
-    // Método para vender um produto, alterando o status para "Vendido"
+    
     public void venderProduto(int produtoId) {
-        conn = new conectaDAO().connectDB(); // Conecta ao banco de dados
+        conn = new conectaDAO().connectDB(); 
 
         String sql = "UPDATE produtos SET status = 'Vendido' WHERE id = ?";
 
         try {
             prep = conn.prepareStatement(sql);
-            prep.setInt(1, produtoId); // Atribui o ID do produto
+            prep.setInt(1, produtoId); 
 
             int resultado = prep.executeUpdate(); // Executa a atualização no banco
 
@@ -74,15 +74,15 @@ public class ProdutosDAO {
         }
     }
 
-    // Método para listar todos os produtos com status "Vendido"
+    
     public ArrayList<ProdutosDTO> listarProdutosVendidos() {
-        conn = new conectaDAO().connectDB(); // Conecta ao banco de dados
+        conn = new conectaDAO().connectDB(); 
 
         String sql = "SELECT * FROM produtos WHERE status = 'Vendido'";
 
         try {
             prep = conn.prepareStatement(sql);
-            resultset = prep.executeQuery(); // Executa a consulta no banco
+            resultset = prep.executeQuery(); 
 
             while (resultset.next()) {
                 ProdutosDTO produto = new ProdutosDTO();
@@ -90,13 +90,13 @@ public class ProdutosDAO {
                 produto.setNome(resultset.getString("nome"));
                 produto.setValor(resultset.getInt("valor"));
                 produto.setStatus(resultset.getString("status"));
-                listagem.add(produto); // Adiciona o produto na lista
+                listagem.add(produto); 
             }
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao listar produtos vendidos: " + erro.getMessage());
         } finally {
             try {
-                if (conn != null) conn.close(); // Fecha a conexão
+                if (conn != null) conn.close(); 
                 if (prep != null) prep.close();
                 if (resultset != null) resultset.close();
             } catch (SQLException e) {
@@ -107,15 +107,15 @@ public class ProdutosDAO {
         return listagem; // Retorna a lista de produtos vendidos
     }
 
-    // Método para listar todos os produtos (não vendidos ou com outro status)
+    
     public ArrayList<ProdutosDTO> listarProdutos() {
-        conn = new conectaDAO().connectDB(); // Conecta ao banco de dados
+        conn = new conectaDAO().connectDB(); 
 
         String sql = "SELECT * FROM produtos";
 
         try {
             prep = conn.prepareStatement(sql);
-            resultset = prep.executeQuery(); // Executa a consulta no banco
+            resultset = prep.executeQuery(); 
 
             while (resultset.next()) {
                 ProdutosDTO produto = new ProdutosDTO();
@@ -123,13 +123,13 @@ public class ProdutosDAO {
                 produto.setNome(resultset.getString("nome"));
                 produto.setValor(resultset.getInt("valor"));
                 produto.setStatus(resultset.getString("status"));
-                listagem.add(produto); // Adiciona o produto na lista
+                listagem.add(produto); 
             }
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao listar produtos: " + erro.getMessage());
         } finally {
             try {
-                if (conn != null) conn.close(); // Fecha a conexão
+                if (conn != null) conn.close(); 
                 if (prep != null) prep.close();
                 if (resultset != null) resultset.close();
             } catch (SQLException e) {
@@ -137,6 +137,6 @@ public class ProdutosDAO {
             }
         }
 
-        return listagem; // Retorna a lista de produtos
+        return listagem; 
     }
 }

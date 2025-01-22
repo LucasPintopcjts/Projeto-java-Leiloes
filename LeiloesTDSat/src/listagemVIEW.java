@@ -169,8 +169,8 @@ public final class listagemVIEW extends javax.swing.JFrame {
     try {
         int produtoId = Integer.parseInt(id);
         ProdutosDAO produtosDAO = new ProdutosDAO();
-        produtosDAO.venderProduto(produtoId);  // Chama o método venderProduto
-        listarProdutos();  // Atualiza a lista de produtos
+        produtosDAO.venderProduto(produtoId);  
+        listarProdutos();  
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(null, "ID inválido.");
         
@@ -233,10 +233,10 @@ public final class listagemVIEW extends javax.swing.JFrame {
     
     private ArrayList<ProdutosDTO> listarProdutos() {
     ArrayList<ProdutosDTO> produtos = new ArrayList<>();
-    String query = "SELECT * FROM produtos"; // A consulta que traz todos os produtos.
-    String url = "jdbc:mysql://localhost:3306/leilao?useSSL=false"; // URL de conexão com o banco de dados
-    String usuario = "root"; // Seu nome de usuário do banco
-    String senha = "Lucas@260906"; // Sua senha do banco
+    String query = "SELECT * FROM produtos"; 
+    String url = "jdbc:mysql://localhost:3306/leilao?useSSL=false";
+    String usuario = "root"; 
+    String senha = "Lucas@260906"; 
     try (Connection conn = DriverManager.getConnection(url, usuario, senha);
          Statement stmt = conn.createStatement();
          ResultSet rs = stmt.executeQuery(query)) {
